@@ -1,19 +1,18 @@
-%define module	Class-DBI-Plugin
-%define name	perl-%{module}
-%define version 0.03
-%define release %mkrel 5
+%define upstream_name	 Class-DBI-Plugin
+%define upstream_version 0.03
 
-Name:		%{name}
-Version:	%{version}
-Release:	%{release}
+Name:		perl-%{upstream_name}
+Version:	%perl_convert_version %{upstream_version}
+Release:	%mkrel 1
+
 Summary:	Abstract base class for Class::DBI plugins
-License:	GPL or Artistic
+License:	GPL+ or Artistic
 Group:		Development/Perl
-URL:		http://search.cpan.org/dist/%{module}
-Source0:	http://search.cpan.org/CPAN/authors/id/T/TM/TMTM/%{module}-%{version}.tar.gz
-BuildRequires:	perl-devel
-BuildArch:	noarch
+URL:		http://search.cpan.org/dist/%{upstream_name}
+Source0:	http://search.cpan.org/CPAN/authors/id/T/TM/TMTM/%{upstream_name}-%{upstream_version}.tar.gz
+
 BuildRoot:	%{_tmppath}/%{name}-%{version}
+BuildArch:	noarch
 
 %description
 Class::DBI::Plugin is an abstract base class for Class::DBI plugins.
@@ -33,7 +32,7 @@ add_trigger() and so on.
 methods is the plugged-in class, not the plugin class.
 
 %prep
-%setup -q -n %{module}-%{version} 
+%setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor
