@@ -3,7 +3,7 @@
 
 Name:		perl-%{upstream_name}
 Version:	%perl_convert_version %{upstream_version}
-Release:	%mkrel 2
+Release:	3
 
 Summary:	Abstract base class for Class::DBI plugins
 License:	GPL+ or Artistic
@@ -11,7 +11,7 @@ Group:		Development/Perl
 URL:		http://search.cpan.org/dist/%{upstream_name}
 Source0:	http://search.cpan.org/CPAN/authors/id/T/TM/TMTM/%{upstream_name}-%{upstream_version}.tar.gz
 
-BuildRoot:	%{_tmppath}/%{name}-%{version}
+BuildRequires:	perl-devel
 BuildArch:	noarch
 
 %description
@@ -35,22 +35,47 @@ methods is the plugged-in class, not the plugin class.
 %setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
+perl Makefile.PL INSTALLDIRS=vendor
 %make
 
 %check
-%{__make} test
+make test
 
 %install
-rm -rf %{buildroot}
 %makeinstall_std
 
-%clean 
-rm -rf %{buildroot}
-
 %files
-%defattr(-,root,root)
 %doc Changes README
 %{perl_vendorlib}/Class
 %{_mandir}/*/*
+
+%changelog
+* Sat May 28 2011 Funda Wang <fwang@mandriva.org> 0.30.0-2mdv2011.0
++ Revision: 680793
+- mass rebuild
+
+* Thu Jul 23 2009 Jérôme Quelin <jquelin@mandriva.org> 0.30.0-1mdv2011.0
++ Revision: 398796
+- rebuild
+- using %%perl_convert_version
+- fixed license field
+
+* Wed Jul 23 2008 Thierry Vignaud <tv@mandriva.org> 0.03-5mdv2009.0
++ Revision: 241181
+- rebuild
+- kill re-definition of %%buildroot on Pixel's request
+
+  + Olivier Blin <oblin@mandriva.com>
+    - restore BuildRoot
+
+* Sat Sep 15 2007 Guillaume Rousse <guillomovitch@mandriva.org> 0.03-3mdv2008.0
++ Revision: 86097
+- rebuild
+
+
+* Sat Apr 08 2006 Arnaud de Lorbeau <devel@mandriva.com> 0.03-2mdk
+- add description
+
+* Sat Apr 08 2006 Arnaud de Lorbeau <devel@mandriva.com> 0.03-1mdk
+- initial Mandriva package
 
